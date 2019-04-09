@@ -22,7 +22,7 @@ describe('VoterComponent', () => {
   it('should render total votes', () => {
     component.othersVote = 20;
     component.myVote = 1;
-    // Se agrega detect changes para que escuche los cambios del DOM
+    // Se agrega detect changes para que escuche los cambios
     fixture.detectChanges();
 
     const de = fixture.debugElement.query(By.css('.vote-count'));
@@ -30,5 +30,27 @@ describe('VoterComponent', () => {
 
     // Assert
     expect(el.innerText).toContain('21');
+  });
+
+  // Esta prueba valida que se ponga la propiedad highlighted cuando he votado
+  it('should highlight the upvote button if I have upvoted', () => {
+    component.myVote = 1;
+    fixture.detectChanges();
+
+    const de = fixture.debugElement.query(By.css('.glyphicon-menu-up'));
+
+    // Assert
+    expect(de.classes['highlighted']).toBeTruthy();
+  });
+
+  // Prueba para el evento upVote()
+  it('should increase total votes when I click the upvoted button', () => {
+
+    const button = fixture.debugElement.query(By.css('.glyphicon-menu-up'));
+    // Act
+    button.triggerEventHandler('click', null);
+
+    // Assert
+    expect(component.totalVotes).toBe(1);
   });
 });

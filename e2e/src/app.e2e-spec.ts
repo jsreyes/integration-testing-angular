@@ -1,14 +1,14 @@
-import { AppPage } from './app.po';
+import { IntegrationTestingDemoPage } from './app.po';
 
-describe('workspace-project App', () => {
-  let page: AppPage;
+describe('integration-testing-demo App', function() {
+  let page: IntegrationTestingDemoPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new IntegrationTestingDemoPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to integration-testing-cool!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });

@@ -5,7 +5,8 @@ import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { RouterOutlet, RouterLinkWithHref } from '@angular/router';
+import { RouterOutlet } from '@angular/router';
+import { NavComponent } from './nav/nav.component';
 
 describe('AppComponent', () => {
   let component: AppComponent;
@@ -14,7 +15,7 @@ describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule],
-      declarations: [ AppComponent ]
+      declarations: [ AppComponent, NavComponent ]
     })
     .compileComponents();
   }));
@@ -32,13 +33,5 @@ describe('AppComponent', () => {
     expect(de).not.toBeNull();
   });
 
-  // Test para saber si el componente App tiene la etiqueta <router-outlet></router-outlet>
-  it('should have a link to todos page', () => {
-    const debugElements = fixture.debugElement.queryAll(By.directive(RouterLinkWithHref));
 
-    // <a href="/todos">
-    const index = debugElements.findIndex(de => de.properties['href'] === '/todos');
-
-    expect(index).toBeGreaterThan(-1);
-  });
 });

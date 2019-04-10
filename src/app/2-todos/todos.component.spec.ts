@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, fakeAsync, tick, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
 import { HttpModule } from '@angular/http';
@@ -38,16 +38,20 @@ describe('TodosComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load todos from the server', () => {
+  it('should load todos from the server', fakeAsync(() => {
     // Se crea una variable con el banco de pruebas y llamando
     // el TodoService que se importa (Arrange)
     const service = TestBed.get(TodoService);
 
     // Act
-    spyOn(service, 'getTodos').and.returnValue(Observable.from([ [1, 2, 3]]));
+    // spyOn(service, 'getTodos').and.returnValue(Observable.from([ [1, 2, 3]]));
+    spyOn(service, 'getTodosPromise').and.returnValue(Promise.resolve([ 1, 2, 3])); // Con el Promise
     // Se quita del before each porque el escucha cuando se lanza el servicio
     fixture.detectChanges();
 
+    // Esta función espera a que se cumpla la promesa
+    tick();
+
     expect(component.todos.length).toBe(3);
-  });
+  }));
 });
